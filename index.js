@@ -28,7 +28,7 @@ io.on('connection', async (socket) => {
     let tokenUser = socket.handshake.auth.token;
     let idUser = socket.handshake.query.mail_id;
     try {
-        await jwt.verify(tokenUser, process.env.APP_KEY);
+        await jwt.verify(tokenUser, '7j5ATbeZclRvEzjYcOEV0KV7XYNYQ0VD8W7O31mqDKt8H4tThs8cZig7BNW6634b');
         database.ref(idUser).set({
             socket_id: socket.id,
             mail_id: idUser,
