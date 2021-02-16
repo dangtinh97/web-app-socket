@@ -3,7 +3,7 @@ const http = require('http').Server(app);
 require('dotenv').config();
 const io = require('socket.io')(http, {
     cors: {
-        origin: "http://localhost",
+        origin: "https://dangtinh97.github.io/",
         methods: ["GET", "POST"]
     }
 });
