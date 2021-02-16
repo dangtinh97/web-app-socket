@@ -39,13 +39,15 @@ io.on('connection', async (socket) => {
                 // The write was successful...
                 console.log("success")
             }
-        })
-        console.log('a user connected');
+        });
         socket.on('send-message', async function (e) {
+            setDataFireBase('send-message-on',e)
             let findSocketId = await findIdSocket(e.to_user_id);
-            console.log('findSocketId-----',findSocketId);
             if (findSocketId === null) return;
-            console.log(e.to_user_id, findSocketId, userIds);
+            setDataFireBase('send-message-emit',{
+                from_user_id: idUser,
+                content: e.content,
+            })
             io.to(findSocketId).emit('send-message', {
                 from_user_id: idUser,
                 content: e.content,
@@ -58,9 +60,22 @@ io.on('connection', async (socket) => {
     socket.on('disconnect', () => {
         console.log(socket.id + '-----------disconnect', idUser);
         database.ref(idUser).remove();
+        setDataFireBase('logout',{user_id:idUser})
     });
 
 });
+
+
+let setDataFireBase= (key,data)=>{
+    database.ref(key).set(data, function (error) {
+        if (error) {
+            console.log("Failed with error: " + error)
+        } else {
+            // The write was successful...
+            console.log("success")
+        }
+    });
+}
 
 let findIdSocket = async (mail_id) => {
     let id = null;
@@ -73,16 +88,6 @@ let findIdSocket = async (mail_id) => {
 
        });
    return id ;
-
-
-    for (let i = 0; i < userIds.length; i++) {
-        if (userIds[i]['mail_id'] === mail_id) {
-            id = userIds[i]['socket_id']
-            break;
-        }
-    }
-    ;
-    return id;
 }
 
 http.listen(process.env.PORT || 8080, () => {
