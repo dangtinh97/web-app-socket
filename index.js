@@ -1,7 +1,9 @@
 const app = require('express')();
+
 const http = require('http').Server(app);
 require('dotenv').config();
 const io = require('socket.io')(http);
+app.use(cors());
 var firebase = require('firebase');
 var firebaseConfig = {
     apiKey: "AIzaSyCQgafQhFkTdEw2h8SioLIsY-qZn-asFS4",
