@@ -1,6 +1,10 @@
 {
   "name": "web-app",
   "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "description": "my first socket.io app",
   "dependencies": {
     "dotenv": "^8.2.0",
