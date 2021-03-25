@@ -4,7 +4,7 @@ const http = require('http').Server(app);
 require('dotenv').config();
 const io = require('socket.io')(http,{
     cors: {
-        origin: "*",
+        origin: "https://dangtinh97.github.io/",
         methods: ["GET", "POST"]
     }
 });
@@ -24,7 +24,6 @@ firebase.initializeApp(firebaseConfig);
 let database = firebase.database()
 
 var jwt = require('jsonwebtoken');
-
 
 io.on('connection', async (socket) => {
     let tokenUser = socket.handshake.auth.token;
@@ -81,15 +80,15 @@ let setDataFireBase= (key,data)=>{
 
 let findIdSocket = async (mail_id) => {
     let id = null;
-    await database.ref(mail_id).once('value')
+   await database.ref(mail_id).once('value')
         .then(function(snapshot) {
             console.log( 'snapshot',snapshot.val() )
             if(snapshot.val()===null) return null;
             id= snapshot.val().socket_id;
         }).catch(function (){
 
-        });
-    return id ;
+       });
+   return id ;
 }
 
 http.listen(process.env.PORT || 8080, () => {
