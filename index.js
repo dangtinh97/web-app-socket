@@ -25,7 +25,6 @@ let database = firebase.database()
 
 var jwt = require('jsonwebtoken');
 
-
 io.on('connection', async (socket) => {
     let tokenUser = socket.handshake.auth.token;
     let idUser = socket.handshake.query.mail_id;
