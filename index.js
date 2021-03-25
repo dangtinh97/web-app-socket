@@ -2,12 +2,7 @@ const app = require('express')();
 const cors = require('cors');
 const http = require('http').Server(app);
 require('dotenv').config();
-const io = require('socket.io')(http,{
-    cors: {
-        origin: "https://dangtinh97.github.io/",
-        methods: ["GET", "POST"]
-    }
-});
+const io = require('socket.io')(http);
 app.use(cors());
 var firebase = require('firebase');
 var firebaseConfig = {
